@@ -8,6 +8,7 @@ using System.Text;
 using File = Modtropica_server.modtropica.core.file_system.File;
 using Directory = Modtropica_server.modtropica.core.file_system.Directory;
 using File_real = System.IO.File;
+using dir_real = System.IO.Directory;
 
 
 namespace Modtropica_server
@@ -106,6 +107,18 @@ namespace Modtropica_server
 
                 string path_url = Path.Combine(base_path, temp_url1);
                 Console.WriteLine("POP_api Data: " + path_url + " Exist " + File.Exists(path_url));
+
+                if (temp_url1.StartsWith("www.poptropica.com/haxe/") && !(temp_url1 == "www.poptropica.com/haxe/") && !File_real.Exists(path_url))
+                {
+                    Console.WriteLine("POP_api Data: " + path_url + " haxe build ");
+
+                    string cmg_pop_url = temp_url1.Substring("www.poptropica.com/haxe/".Length);
+                    cmg_pop_url = "https://www.poptropica.com/cmg/play/" + cmg_pop_url;
+                    dir_real.CreateDirectory(Path.GetDirectoryName(path_url));
+                    byte[] temp_file = new WebClient().DownloadData(cmg_pop_url);
+                    File_real.WriteAllBytes(path_url, temp_file);
+                } // for haxe build of poptropica
+
                 if (File.Exists(temp_url1) || Directory.Exists(temp_url1))
                 {
                     if (Path.HasExtension(temp_url1))
@@ -123,8 +136,12 @@ namespace Modtropica_server
                             case ".gif":
                                 response.AppendHeader("Content-Type", "image/gif");
                                 break;
+                            //.css
                             case ".xml":
                                 response.AppendHeader("Content-Type", "application/xml");
+                                break;
+                            case ".css":
+                                response.AppendHeader("Content-Type", ".css");
                                 break;
                             case ".png":
                                 response.AppendHeader("Content-Type", "image/png");
@@ -141,20 +158,27 @@ namespace Modtropica_server
                                 Console.WriteLine($"POP_api url: {temp_url} with {temp}");
                                 if (temp_url.Contains("base.php"))
                                 {
+                                    bool flag = context.Request.HttpMethod == "POST";
                                     NameValueCollection reqObj = context.Request.HttpMethod == "POST"
                                         ? ConvertFormToNameValueCollection(request)
                                         : context.Request.QueryString;
-                                    s = as2_base_php.Base_php_gen(reqObj, temp);
+                                    
+                                    s = as2_base_php.Base_php_gen(reqObj, text, flag);
                                     raw_data = false;
                                 }
                                 //Island_Names
                                 //get_island_names.php
+                                //Monitor.php
                                 else if (temp_url.Contains("get_island_names.php"))
                                 {
                                     s = JsonConvert.SerializeObject(island_data.Island_Names);
                                     raw_data = false;
                                 }
-
+                                else if (temp_url.Contains("Monitor.php"))
+                                {
+                                    s = "";
+                                    raw_data = false;
+                                }
                                 /*
                                 
                                 else if (temp_url.Contains("getPrefix.php"))
@@ -200,6 +224,11 @@ namespace Modtropica_server
                             ? ConvertFormToNameValueCollection(request)
                             : context.Request.QueryString;
                         s = as2_base_php.Base_php_gen(reqObj, temp);
+                        raw_data = false;
+                    }
+                    else if (temp_url.Contains("Monitor.php"))
+                    {
+                        s = "";
                         raw_data = false;
                     }
                     else

@@ -64,6 +64,7 @@ namespace Modtropica_server
         private void start_modtropica_button_Click(object sender, EventArgs e)
         {
             start_modtropica_button.Enabled = false;
+            start_modtropica_button.BackColor = Color.DarkBlue;
             POP_Server = new POP_server();
         }
 

@@ -17,7 +17,28 @@ namespace Modtropica_server.poptropica_php_emu
             public string key;
             public string value;
         }
+        public static List<as2_base> ParseQueryString(string queryString)
+        {
+            if (string.IsNullOrEmpty(queryString))
+                return new List<as2_base>();
+            List<as2_base> keyValuePairs = new List<as2_base>();
+            string[] pairs = queryString.TrimStart('?').Split('&');
 
+            foreach (string? pair in pairs)
+            {
+                string[] keyValue = pair.Split('=');
+                string key = keyValue[0];
+                string value = keyValue[1];
+                keyValuePairs.Add(new as2_base()
+                {
+                    key = key,
+                    value = value
+                });
+                
+            }
+
+            return keyValuePairs;
+        }
 
 
         /// <summary>
@@ -25,22 +46,53 @@ namespace Modtropica_server.poptropica_php_emu
         /// </summary>
         /// <param name="HttpContext"></param>
         /// <returns></returns>
-        public static string Base_php_gen(NameValueCollection reqObj, string url)
+        public static string Base_php_gen(NameValueCollection reqObj, string url, bool hack_url = false)
         {
+            List<as2_base> keyValuePairs = new List<as2_base>();
+            if (hack_url)
+            {
+                keyValuePairs = ParseQueryString(url);
+            }
             string GetParam(string name, string defaultValue)
             {
                 return reqObj[name] != null ? Uri.EscapeDataString(reqObj[name]) : defaultValue;
+            }
+            string GetParam_form(string name, string defaultValue)
+            {
+
+                foreach (as2_base item in keyValuePairs)
+                {
+                    if (item.key == name)
+                    {
+                        if (!string.IsNullOrEmpty(item.value))
+                        {
+                            return item.value;
+                        }
+                    }
+                }
+
+                return defaultValue;
             }
             /*
             string scene = GetParam("room", "Home");
             string island = GetParam("island", "Home");
             string path = GetParam("startup_path", "gameplay");
             */
-
-            string scene = GetParam("room", "Home");
-            string island = GetParam("island", "Home");
-            string path = GetParam("startup_path", "gameplay");
-
+            string scene = "Home";
+            string island = "Home";
+            string path = "gameplay";
+            if (!hack_url)
+            {
+                scene = GetParam("room", "Home");
+                island = GetParam("island", "Home");
+                path = GetParam("startup_path", "gameplay");
+            }
+            else
+            {
+                scene = GetParam_form("room", "Home");
+                island = GetParam_form("island", "Home");
+                path = GetParam_form("startup_path", "gameplay");
+            }
             Console.WriteLine($"scene: {scene} on island: {island}");
 
             const string SCENE_AS3 = "GlobalAS3Embassy";

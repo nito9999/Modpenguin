@@ -117,25 +117,46 @@ namespace Modtropica_server.modtropica.core
             return @override;
         }
 
-        public static file_override Find_high_load_order_item(List<file_override> list)
+        public static file_override Find_high_load_order_item(List<file_override> list, string url = "")
         {
             if (list.Count == 0)
             {
                 return null;
             }
             int load_order = int.MinValue;
-            foreach (file_override type in list)
+            if (string.IsNullOrEmpty(url))
             {
-                if (type.load_order > load_order)
+
+                foreach (file_override type in list)
                 {
-                    load_order = type.load_order;
+                    if (type.load_order > load_order)
+                    {
+                        load_order = type.load_order;
+                    }
+                }
+                foreach (file_override type in list)
+                {
+                    if (type.load_order == load_order)
+                    {
+                        return type;
+                    }
                 }
             }
-            foreach (file_override type in list)
+            else
             {
-                if (type.load_order == load_order)
+                foreach (file_override type in list)
                 {
-                    return type;
+                    if (type.load_order > load_order && url.Contains(type.file_path))
+                    {
+                        load_order = type.load_order;
+                    }
+                }
+                foreach (file_override type in list)
+                {
+                    if (type.load_order == load_order)
+                    {
+                        return type;
+                    }
                 }
             }
             return null;
@@ -166,6 +187,8 @@ namespace Modtropica_server.modtropica.core
             remove,
             add,
             rename,
+            replace,
+            add_link_file,
         }
 
         /// <summary>
@@ -175,7 +198,7 @@ namespace Modtropica_server.modtropica.core
         {
             internal static bool Exists(string path)
             {
-                file_override item = Find_high_load_order_item(file_override_list);
+                file_override item = Find_high_load_order_item(file_override_list, path);
                 if (item != null)
                 {
                     if (item.enable)
@@ -186,6 +209,11 @@ namespace Modtropica_server.modtropica.core
                             {
                                 return false;
                             }
+                            else if (item.type == file_type.add || item.type == file_type.add_link_file)
+                            {
+                                return File_IO.File.Exists(File_IO.Path.Combine(item.Directory_path, item.new_file_path));
+                            }
+                            //File_IO.Path.Combine(item.Directory_path, item.new_file_path)
                         }
                     }
                 }
@@ -194,14 +222,23 @@ namespace Modtropica_server.modtropica.core
 
             internal static byte[] ReadAllBytes(string path)
             {
-                file_override item = Find_high_load_order_item(file_override_list);
+                file_override item = Find_high_load_order_item(file_override_list, path);
                 if (item != null)
                 {
                     if (item.enable)
                     {
                         if (item.file_path == path)
                         {
-                            if (item.type == file_type.rename)
+                            Console.WriteLine($"{path} is same for {item.file_path}");
+                            if (item.type == file_type.add)
+                            {
+                                return File_IO.File.ReadAllBytes(File_IO.Path.Combine(item.Directory_path, item.new_file_path));
+                            }
+                            else if (item.type == file_type.replace)
+                            {
+                                return File_IO.File.ReadAllBytes(File_IO.Path.Combine(item.Directory_path, path));
+                            }
+                            else if (item.type == file_type.rename || item.type == file_type.add_link_file)
                             {
                                 return File_IO.File.ReadAllBytes(File_IO.Path.Combine(item.Directory_path, item.new_file_path));
                             }
@@ -213,14 +250,22 @@ namespace Modtropica_server.modtropica.core
 
             internal static string ReadAllText(string path)
             {
-                file_override item = Find_high_load_order_item(file_override_list);
+                file_override item = Find_high_load_order_item(file_override_list, path);
                 if (item != null)
                 {
                     if (item.enable)
                     {
                         if (item.file_path == path)
                         {
-                            if (item.type == file_type.rename)
+                            if (item.type == file_type.add)
+                            {
+                                return File_IO.File.ReadAllText(File_IO.Path.Combine(item.Directory_path, item.new_file_path));
+                            }
+                            else if (item.type == file_type.replace)
+                            {
+                                return File_IO.File.ReadAllText(File_IO.Path.Combine(item.Directory_path, path));
+                            }
+                            else if (item.type == file_type.rename || item.type == file_type.add_link_file)
                             {
                                 return File_IO.File.ReadAllText(File_IO.Path.Combine(item.Directory_path, item.new_file_path));
                             }

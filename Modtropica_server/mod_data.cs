@@ -106,6 +106,7 @@ namespace Modtropica_server
 
                     if (mod.file_def != null)
                     {
+                        int load_order = 1;
                         foreach (string item in mod.file_def)
                         {
                             try
@@ -115,17 +116,23 @@ namespace Modtropica_server
                                 {
                                     foreach (mod_file_data item1 in mod_file.file_Datas)
                                     {
+                                        bool flag = false;
+                                        if (item1.is_dir != null && item1.is_dir == true)
+                                        {
+                                            flag = item1.is_dir;
+                                        }
                                         file_system.Add_override(new file_system.file_override
                                         {
                                             mod_guid = mod.Guid,
-                                            Directory = false,
+                                            Directory = flag,
                                             enable = true,
                                             file_path = item1.file_name,
                                             new_file_path = item1.file_replacement_name,
                                             type = (file_system.file_type)item1.type,
-                                            load_order = 1,
+                                            load_order = load_order,
                                             Directory_path = s
                                         });
+                                        load_order += 1;
                                     }
                                 }
                             }
@@ -219,6 +226,7 @@ namespace Modtropica_server
         public class mod_file_data
         {
             public mod_file_type type { get; set; }
+            public bool is_dir { get; set; } = false;
             public string file_name { get; set; }
             public string? file_replacement_name { get; set; }
         }
@@ -234,12 +242,16 @@ namespace Modtropica_server
             none,
             add,
         }
+        /// <summary>
+        /// 
+        /// </summary>
         public enum mod_file_type
         {
             none,
             remove,
             add,
             rename,
+            merge, // it only work when is_dir is true 
         }
     }
 }
