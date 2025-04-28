@@ -1,10 +1,10 @@
 # Modtropica
-a poptropica game with a custom server made with c#
+a poptropica game with a custom server made with c#, is moddable
 ---
-# install
+# Install
 you needed dotnet 8 installed on your pc
 ---
-# web browser
-well poptropica was made with flash, moden web browser don't run flash content at all,
-you needed a bowser extension like ruffle or a old browser version like flashpoint navigator component
-you also needed to set your bowser proxy setting to 127.0.0.1 with the port 22500
+# Web Browser
+well poptropica was made with flash, modern web browsers don't run flash content at all.
+you needed a browser extension like Ruffle, or a old browser version like Flashpoint Navigator Component.
+you also need to set your browser proxy setting to 127.0.0.1 with the port 22500
