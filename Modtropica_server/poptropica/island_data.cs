@@ -15,6 +15,7 @@ namespace Modtropica_server.poptropica
             public string Name { get; set; }
             public string IslandFullName { get; set; }
         }
+
         public static List<Island_name> Island_Names = new List<Island_name>
         {
             new Island_name

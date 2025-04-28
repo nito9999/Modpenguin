@@ -54,7 +54,18 @@ namespace Modtropica_server.modtropica.core
                 }
             }
         }
-
+        public static void SetEnable_override(string mod_guid, bool flag)
+        {
+            foreach (file_override item in file_override_list)
+            {
+                if (mod_guid == item.mod_guid)
+                {
+                    Console.WriteLine($"File_System: setting file override enable: {flag} for {item.file_path} in mod {item.mod_guid}");
+                    item.enable = flag;
+                    
+                }
+            }
+        }
         public static void SetEnable_override(string file_path, string mod_guid, bool flag)
         {
             foreach (file_override item in file_override_list)
@@ -320,7 +331,12 @@ namespace Modtropica_server.modtropica.core
                 {
                     if (is_core_app)
                     {
-                        return File_IO.File.ReadAllBytes(File_IO.Path.Combine("Resources", mod_image_name));
+
+                        var assembly = typeof(Program).Assembly;
+                        Stream stream = assembly.GetManifestResourceStream
+                                              ("Modtropica_server.Resources." + mod_image_name);
+                        return ReadFully(stream);
+                        //return File_IO.File.ReadAllBytes(File_IO.Path.Combine("Resources", mod_image_name));
                     }
                     else // TODO: imperment mod image load
                     {
@@ -340,6 +356,21 @@ namespace Modtropica_server.modtropica.core
                 }
                 return File_IO.File.ReadAllBytes(File_IO.Path.Combine("Resources", "defaut_no_mod.png"));
             }
+
+            public static byte[] ReadFully(Stream input)
+            {
+                byte[] buffer = new byte[16 * 1024];
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    int read;
+                    while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
+                    {
+                        ms.Write(buffer, 0, read);
+                    }
+                    return ms.ToArray();
+                }
+            }
+
         }
 
         public class Directory

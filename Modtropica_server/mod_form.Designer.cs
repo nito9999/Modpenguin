@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            mod_rescan = new Button();
             start_modtropica_button = new Button();
             dataGridView1 = new DataGridView();
             enable = new DataGridViewCheckBoxColumn();
@@ -44,7 +45,8 @@
             info_disc = new TextBox();
             dev_box = new TextBox();
             mod_name = new TextBox();
-            mod_rescan = new Button();
+            Tag_list = new TextBox();
+            date_box = new TextBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)logo_big_Box).BeginInit();
@@ -58,8 +60,18 @@
             panel1.Controls.Add(dataGridView1);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(433, 520);
+            panel1.Size = new Size(433, 545);
             panel1.TabIndex = 0;
+            // 
+            // mod_rescan
+            // 
+            mod_rescan.Location = new Point(8, 515);
+            mod_rescan.Name = "mod_rescan";
+            mod_rescan.Size = new Size(120, 23);
+            mod_rescan.TabIndex = 3;
+            mod_rescan.Text = "refresh modtropica";
+            mod_rescan.UseVisualStyleBackColor = true;
+            mod_rescan.Click += mod_rescan_Click;
             // 
             // start_modtropica_button
             // 
@@ -75,42 +87,45 @@
             // 
             dataGridView1.BackgroundColor = SystemColors.ControlDarkDark;
             dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.ControlDarkDark;
-            dataGridViewCellStyle1.Font = new Font("Tahoma", 9F);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.ControlDarkDark;
+            dataGridViewCellStyle5.Font = new Font("Tahoma", 9F);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { enable, name, icon, mod_guid, image_name });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.WindowFrame;
-            dataGridViewCellStyle2.Font = new Font("Tahoma", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlLight;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.WindowFrame;
+            dataGridViewCellStyle6.Font = new Font("Tahoma", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlLight;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
             dataGridView1.Location = new Point(8, 9);
             dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.ControlDarkDark;
-            dataGridViewCellStyle3.Font = new Font("Tahoma", 9F);
-            dataGridViewCellStyle3.ForeColor = Color.White;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGridViewCellStyle4.BackColor = SystemColors.ControlDarkDark;
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = SystemColors.ControlDarkDark;
+            dataGridViewCellStyle7.Font = new Font("Tahoma", 9F);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle8.BackColor = SystemColors.ControlDarkDark;
+            dataGridViewCellStyle8.ForeColor = Color.White;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
             dataGridView1.RowTemplate.DefaultCellStyle.BackColor = Color.FromArgb(64, 64, 64);
             dataGridView1.RowTemplate.DefaultCellStyle.ForeColor = Color.White;
             dataGridView1.Size = new Size(413, 472);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellContentClick_1;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick_2;
+            dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
+            dataGridView1.CurrentCellDirtyStateChanged += dataGridView1_CurrentCellDirtyStateChanged;
             // 
             // enable
             // 
@@ -153,7 +168,7 @@
             // 
             logo_big_Box.BackgroundImageLayout = ImageLayout.Stretch;
             logo_big_Box.BorderStyle = BorderStyle.FixedSingle;
-            logo_big_Box.Location = new Point(451, 23);
+            logo_big_Box.Location = new Point(451, 51);
             logo_big_Box.Name = "logo_big_Box";
             logo_big_Box.Size = new Size(257, 240);
             logo_big_Box.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -167,11 +182,11 @@
             info_disc.BorderStyle = BorderStyle.FixedSingle;
             info_disc.ForeColor = Color.White;
             info_disc.HideSelection = false;
-            info_disc.Location = new Point(452, 275);
+            info_disc.Location = new Point(451, 297);
             info_disc.Multiline = true;
             info_disc.Name = "info_disc";
             info_disc.ReadOnly = true;
-            info_disc.Size = new Size(466, 220);
+            info_disc.Size = new Size(529, 260);
             info_disc.TabIndex = 2;
             // 
             // dev_box
@@ -181,11 +196,11 @@
             dev_box.BorderStyle = BorderStyle.FixedSingle;
             dev_box.ForeColor = Color.White;
             dev_box.HideSelection = false;
-            dev_box.Location = new Point(714, 124);
+            dev_box.Location = new Point(714, 163);
             dev_box.Multiline = true;
             dev_box.Name = "dev_box";
             dev_box.ReadOnly = true;
-            dev_box.Size = new Size(204, 139);
+            dev_box.Size = new Size(266, 128);
             dev_box.TabIndex = 3;
             // 
             // mod_name
@@ -195,28 +210,47 @@
             mod_name.BorderStyle = BorderStyle.FixedSingle;
             mod_name.ForeColor = Color.White;
             mod_name.HideSelection = false;
-            mod_name.Location = new Point(714, 23);
+            mod_name.Location = new Point(451, 23);
             mod_name.Name = "mod_name";
             mod_name.ReadOnly = true;
-            mod_name.Size = new Size(204, 22);
+            mod_name.Size = new Size(257, 22);
             mod_name.TabIndex = 4;
             // 
-            // mod_rescan
+            // Tag_list
             // 
-            mod_rescan.Location = new Point(301, 490);
-            mod_rescan.Name = "mod_rescan";
-            mod_rescan.Size = new Size(120, 23);
-            mod_rescan.TabIndex = 3;
-            mod_rescan.Text = "refresh modtropica";
-            mod_rescan.UseVisualStyleBackColor = true;
-            mod_rescan.Click += mod_rescan_Click;
+            Tag_list.AcceptsReturn = true;
+            Tag_list.BackColor = Color.FromArgb(64, 64, 64);
+            Tag_list.BorderStyle = BorderStyle.FixedSingle;
+            Tag_list.ForeColor = Color.White;
+            Tag_list.HideSelection = false;
+            Tag_list.Location = new Point(714, 51);
+            Tag_list.Multiline = true;
+            Tag_list.Name = "Tag_list";
+            Tag_list.ReadOnly = true;
+            Tag_list.Size = new Size(266, 106);
+            Tag_list.TabIndex = 5;
+            // 
+            // date_box
+            // 
+            date_box.AcceptsReturn = true;
+            date_box.BackColor = Color.FromArgb(64, 64, 64);
+            date_box.BorderStyle = BorderStyle.FixedSingle;
+            date_box.ForeColor = Color.White;
+            date_box.HideSelection = false;
+            date_box.Location = new Point(714, 23);
+            date_box.Name = "date_box";
+            date_box.ReadOnly = true;
+            date_box.Size = new Size(266, 22);
+            date_box.TabIndex = 6;
             // 
             // mod_form
             // 
             AutoScaleDimensions = new SizeF(7F, 14F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(947, 544);
+            ClientSize = new Size(992, 569);
+            Controls.Add(date_box);
+            Controls.Add(Tag_list);
             Controls.Add(mod_name);
             Controls.Add(dev_box);
             Controls.Add(info_disc);
@@ -231,6 +265,7 @@
             ResumeLayout(false);
             PerformLayout();
         }
+
 
         #endregion
 
@@ -247,5 +282,7 @@
         private DataGridViewTextBoxColumn mod_guid;
         private DataGridViewTextBoxColumn image_name;
         private Button mod_rescan;
+        private TextBox Tag_list;
+        private TextBox date_box;
     }
 }

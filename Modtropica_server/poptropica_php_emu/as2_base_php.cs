@@ -93,6 +93,10 @@ namespace Modtropica_server.poptropica_php_emu
                 island = GetParam_form("island", "Home");
                 path = GetParam_form("startup_path", "gameplay");
             }
+            return Base_php_gen(scene, island, path);
+        }
+        public static string Base_php_gen(string scene = "Home", string island = "Home", string path = "gameplay")
+        {
             Console.WriteLine($"scene: {scene} on island: {island}");
 
             const string SCENE_AS3 = "GlobalAS3Embassy";

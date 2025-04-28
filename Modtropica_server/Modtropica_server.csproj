@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
+    <PackageReference Include="WebSocketSharp" Version="1.0.3-rc11" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,15 +30,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Resources\Image1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\modtropica.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Resources\Poptropica.jpg">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+      <EmbeddedResource Include="Resources\Poptropica.png" />
+  </ItemGroup>
+  <ItemGroup>
+      <EmbeddedResource Include="Resources\modtropica.png" />
+  </ItemGroup>
+  <ItemGroup>
+      <EmbeddedResource Include="Resources\defaut_no_mod.png" />
   </ItemGroup>
 
 </Project>

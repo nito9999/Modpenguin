@@ -172,7 +172,7 @@ namespace Modtropica_server
                         "Pearson Education"
                     },
                     type = mod_type.none,
-                    image_name = "img://core/poptropica.png",
+                    image_name = "img://core/Poptropica.png",
                     Release_Date = DateOnly.Parse("01/09/2007")
                 }
             },

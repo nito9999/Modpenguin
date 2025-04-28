@@ -171,7 +171,19 @@ namespace Modtropica_server
                                 //Monitor.php
                                 else if (temp_url.Contains("get_island_names.php"))
                                 {
-                                    s = JsonConvert.SerializeObject(island_data.Island_Names);
+                                    s = "answer=ok&json=" + Uri.EscapeDataString(JsonConvert.SerializeObject(island_data.Island_Names));
+                                    raw_data = false;
+                                }
+                                else if (temp_url.Contains("brain/track.php"))
+                                {
+                                    NameValueCollection reqObj = context.Request.QueryString;
+
+                                    foreach (string item in reqObj.AllKeys)
+                                    {
+                                        Console.WriteLine($"key: {item} value: {reqObj.Get(item)}");
+                                    }
+                                    
+                                    s = "";
                                     raw_data = false;
                                 }
                                 else if (temp_url.Contains("Monitor.php"))
@@ -226,6 +238,23 @@ namespace Modtropica_server
                         s = as2_base_php.Base_php_gen(reqObj, temp);
                         raw_data = false;
                     }
+                    else if (temp_url.Contains("get_island_names.php"))
+                    {
+                        s = "answer=ok&json=" + Uri.EscapeDataString(JsonConvert.SerializeObject(island_data.Island_Names));
+                        raw_data = false;
+                    }
+                    else if (temp_url.Contains("brain/track.php"))
+                    {
+                        NameValueCollection reqObj = context.Request.QueryString;
+
+                        foreach (string item in reqObj.AllKeys)
+                        {
+                            Console.WriteLine($"key: {item} value: {reqObj.Get(item)}");
+                        }
+
+                        s = "";
+                        raw_data = false;
+                    }
                     else if (temp_url.Contains("Monitor.php"))
                     {
                         s = "";
@@ -233,6 +262,14 @@ namespace Modtropica_server
                     }
                     else
                     {
+                        try
+                        {
+
+                        }
+                        catch 
+                        {
+
+                        }
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                     }
                 }
