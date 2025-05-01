@@ -9,6 +9,8 @@ using File = Modtropica_server.modtropica.core.file_system.File;
 using Directory = Modtropica_server.modtropica.core.file_system.Directory;
 using File_real = System.IO.File;
 using dir_real = System.IO.Directory;
+using System.Security.Principal;
+using System.Net.Sockets;
 
 
 namespace Modtropica_server
@@ -28,11 +30,30 @@ namespace Modtropica_server
             }
         }
 
+        public static string GetMyHost()
+        {
+            IPAddress[] addressList = Dns.GetHostEntry(Dns.GetHostName()).AddressList;
+            foreach (IPAddress iPAddress in addressList)
+            {
+                if (iPAddress.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return iPAddress.ToString();
+                }
+            }
+            return "";
+        }
+
+        public static bool admin = new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
         private void StartListen()
         {
             try
             {
                 this.listener.Prefixes.Add($"http://127.0.0.1:{port_pop_server}/");
+                if (admin)
+                {
+                    this.listener.Prefixes.Add($"http://{GetMyHost()}:{port_pop_server}/");
+                    Console.WriteLine($"running on {GetMyHost()}:{port_pop_server}");
+                }
                 this.listener.Start();
                 Console.WriteLine("[POP_server.cs] is listening.");
 

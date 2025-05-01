@@ -28,10 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             panel1 = new Panel();
             mod_rescan = new Button();
             start_modtropica_button = new Button();
@@ -47,6 +48,8 @@
             mod_name = new TextBox();
             Tag_list = new TextBox();
             date_box = new TextBox();
+            title_panal = new Panel();
+            button1 = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)logo_big_Box).BeginInit();
@@ -54,7 +57,9 @@
             // 
             // panel1
             // 
+            panel1.BackColor = Color.FromArgb(63, 63, 63);
             panel1.BorderStyle = BorderStyle.Fixed3D;
+            panel1.Controls.Add(button1);
             panel1.Controls.Add(mod_rescan);
             panel1.Controls.Add(start_modtropica_button);
             panel1.Controls.Add(dataGridView1);
@@ -85,39 +90,41 @@
             // 
             // dataGridView1
             // 
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(63, 63, 63);
+            dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridView1.BackgroundColor = SystemColors.ControlDarkDark;
             dataGridView1.BorderStyle = BorderStyle.Fixed3D;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.ControlDarkDark;
-            dataGridViewCellStyle5.Font = new Font("Tahoma", 9F);
-            dataGridViewCellStyle5.ForeColor = Color.White;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.ControlDarkDark;
+            dataGridViewCellStyle2.Font = new Font("Tahoma", 9F);
+            dataGridViewCellStyle2.ForeColor = Color.White;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { enable, name, icon, mod_guid, image_name });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.WindowFrame;
-            dataGridViewCellStyle6.Font = new Font("Tahoma", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlLight;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.WindowFrame;
+            dataGridViewCellStyle3.Font = new Font("Tahoma", 9F);
+            dataGridViewCellStyle3.ForeColor = SystemColors.ControlLight;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridView1.Location = new Point(8, 9);
             dataGridView1.Name = "dataGridView1";
-            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle7.BackColor = SystemColors.ControlDarkDark;
-            dataGridViewCellStyle7.Font = new Font("Tahoma", 9F);
-            dataGridViewCellStyle7.ForeColor = Color.White;
-            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
-            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle7;
-            dataGridViewCellStyle8.BackColor = SystemColors.ControlDarkDark;
-            dataGridViewCellStyle8.ForeColor = Color.White;
-            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.ControlDarkDark;
+            dataGridViewCellStyle4.Font = new Font("Tahoma", 9F);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridView1.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle5.BackColor = SystemColors.ControlDarkDark;
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.RowTemplate.DefaultCellStyle.BackColor = Color.FromArgb(64, 64, 64);
             dataGridView1.RowTemplate.DefaultCellStyle.ForeColor = Color.White;
             dataGridView1.Size = new Size(413, 472);
@@ -166,9 +173,10 @@
             // 
             // logo_big_Box
             // 
+            logo_big_Box.BackColor = Color.FromArgb(63, 63, 63);
             logo_big_Box.BackgroundImageLayout = ImageLayout.Stretch;
             logo_big_Box.BorderStyle = BorderStyle.FixedSingle;
-            logo_big_Box.Location = new Point(451, 51);
+            logo_big_Box.Location = new Point(451, 79);
             logo_big_Box.Name = "logo_big_Box";
             logo_big_Box.Size = new Size(257, 240);
             logo_big_Box.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -178,25 +186,25 @@
             // info_disc
             // 
             info_disc.AcceptsReturn = true;
-            info_disc.BackColor = Color.FromArgb(64, 64, 64);
+            info_disc.BackColor = Color.FromArgb(63, 63, 63);
             info_disc.BorderStyle = BorderStyle.FixedSingle;
             info_disc.ForeColor = Color.White;
             info_disc.HideSelection = false;
-            info_disc.Location = new Point(451, 297);
+            info_disc.Location = new Point(451, 325);
             info_disc.Multiline = true;
             info_disc.Name = "info_disc";
             info_disc.ReadOnly = true;
-            info_disc.Size = new Size(529, 260);
+            info_disc.Size = new Size(529, 232);
             info_disc.TabIndex = 2;
             // 
             // dev_box
             // 
             dev_box.AcceptsReturn = true;
-            dev_box.BackColor = Color.FromArgb(64, 64, 64);
+            dev_box.BackColor = Color.FromArgb(63, 63, 63);
             dev_box.BorderStyle = BorderStyle.FixedSingle;
             dev_box.ForeColor = Color.White;
             dev_box.HideSelection = false;
-            dev_box.Location = new Point(714, 163);
+            dev_box.Location = new Point(714, 191);
             dev_box.Multiline = true;
             dev_box.Name = "dev_box";
             dev_box.ReadOnly = true;
@@ -206,11 +214,11 @@
             // mod_name
             // 
             mod_name.AcceptsReturn = true;
-            mod_name.BackColor = Color.FromArgb(64, 64, 64);
+            mod_name.BackColor = Color.FromArgb(63, 63, 63);
             mod_name.BorderStyle = BorderStyle.FixedSingle;
             mod_name.ForeColor = Color.White;
             mod_name.HideSelection = false;
-            mod_name.Location = new Point(451, 23);
+            mod_name.Location = new Point(451, 51);
             mod_name.Name = "mod_name";
             mod_name.ReadOnly = true;
             mod_name.Size = new Size(257, 22);
@@ -219,11 +227,11 @@
             // Tag_list
             // 
             Tag_list.AcceptsReturn = true;
-            Tag_list.BackColor = Color.FromArgb(64, 64, 64);
+            Tag_list.BackColor = Color.FromArgb(63, 63, 63);
             Tag_list.BorderStyle = BorderStyle.FixedSingle;
             Tag_list.ForeColor = Color.White;
             Tag_list.HideSelection = false;
-            Tag_list.Location = new Point(714, 51);
+            Tag_list.Location = new Point(714, 79);
             Tag_list.Multiline = true;
             Tag_list.Name = "Tag_list";
             Tag_list.ReadOnly = true;
@@ -233,15 +241,34 @@
             // date_box
             // 
             date_box.AcceptsReturn = true;
-            date_box.BackColor = Color.FromArgb(64, 64, 64);
+            date_box.BackColor = Color.FromArgb(63, 63, 63);
             date_box.BorderStyle = BorderStyle.FixedSingle;
             date_box.ForeColor = Color.White;
             date_box.HideSelection = false;
-            date_box.Location = new Point(714, 23);
+            date_box.Location = new Point(714, 51);
             date_box.Name = "date_box";
             date_box.ReadOnly = true;
             date_box.Size = new Size(266, 22);
             date_box.TabIndex = 6;
+            // 
+            // title_panal
+            // 
+            title_panal.BackColor = Color.DarkSlateGray;
+            title_panal.BorderStyle = BorderStyle.Fixed3D;
+            title_panal.Location = new Point(451, 12);
+            title_panal.Name = "title_panal";
+            title_panal.Size = new Size(529, 30);
+            title_panal.TabIndex = 7;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(334, 515);
+            button1.Name = "button1";
+            button1.Size = new Size(87, 23);
+            button1.TabIndex = 4;
+            button1.Text = "open setting";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // mod_form
             // 
@@ -249,6 +276,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
             ClientSize = new Size(992, 569);
+            Controls.Add(title_panal);
             Controls.Add(date_box);
             Controls.Add(Tag_list);
             Controls.Add(mod_name);
@@ -258,6 +286,7 @@
             Controls.Add(panel1);
             Name = "mod_form";
             Text = "mod_form";
+            TransparencyKey = Color.FromArgb(64, 64, 64, 170);
             Load += mod_form_Load;
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
@@ -284,5 +313,7 @@
         private Button mod_rescan;
         private TextBox Tag_list;
         private TextBox date_box;
+        private Panel title_panal;
+        private Button button1;
     }
 }

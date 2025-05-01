@@ -45,12 +45,14 @@ namespace Modtropica_server
         }
         public static void program_setup_pop()
         {
+            Form1.main_Form.Hide();
             using (ZipInputStream s = new ZipInputStream(File.OpenRead("game_data/pop.zip")))
             {
                 
                 ZipEntry theEntry;
                 while ((theEntry = s.GetNextEntry()) != null)
                 {
+                    Form1.Setup_Form.Refresh();
 
                     Console.WriteLine(theEntry.Name);
                     Form1.Setup_Form.setup_text.Text = $"extrating {theEntry.Name}";
@@ -87,15 +89,20 @@ namespace Modtropica_server
                     }
                 }
             }
+            Form1.Setup_Form.Visible = false;
         }
 
         static void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
+
+            Form1.main_Form.Hide();
+            
             //Console.WriteLine($"downloading poptropica gamezip [ {e.BytesReceived} / {e.TotalBytesToReceive} ]");
             Console.WriteLine($"downloading poptropica gamezip [ {e.BytesReceived - e.TotalBytesToReceive} ]");
             Form1.Setup_Form.progressBar1.Maximum = (int)e.TotalBytesToReceive;
             Form1.Setup_Form.progressBar1.Value = (int)e.BytesReceived;
+            Form1.Setup_Form.Refresh();
+            Form1.Setup_Form.Update();
         }
-
     }
 }

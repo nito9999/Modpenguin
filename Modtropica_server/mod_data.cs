@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
+using Modtropica_server.app_setting;
 using Modtropica_server.modtropica.core;
 using Newtonsoft.Json;
 
 namespace Modtropica_server
 {
-    internal class mod_data
+    public class mod_data
     {
 
         public class mod_base_info
@@ -21,6 +22,8 @@ namespace Modtropica_server
             public bool enable;
             public mod_info mod_Info;
         }
+
+        public static ui.setting_ui setting_UI;
         public static void clear_modtropica_mod()
         {
             file_system.Remove_All_override();
@@ -52,8 +55,17 @@ namespace Modtropica_server
                             "Pearson Education"
                         },
                         type = mod_type.none,
-                        image_name = "img://core/poptropica.png",
-                        Release_Date = DateOnly.Parse("01/09/2007")
+                        image_name = "img://core/Poptropica.png",
+                        Release_Date = DateOnly.Parse("01/09/2007"),
+                        config = new List<setting_config>
+                        {
+                            new setting_config
+                            {
+                                Key = "background_color",
+                                Input_Type = config_input_type.ColorBox,
+                                default_value = "#0099ff"
+                            }
+                        }
                     }
                 },
                 new mod_base_info()
@@ -90,11 +102,12 @@ namespace Modtropica_server
                 try
                 {
                     mod_info mod = JsonConvert.DeserializeObject<mod_info>(File.ReadAllText(Path.Combine(s, "modinfo.json")));
+                    var tmp = Mod_setting.GetModSetting(mod.Guid, "enable");
                     mods.Add(new mod_base_info
                     {
                         name = mod.name,
                         core_mod = false,
-                        enable = true,
+                        enable = bool.Parse(tmp),
                         mod_Info = mod,
                         Directory_path = s
                     });
@@ -125,7 +138,7 @@ namespace Modtropica_server
                                         {
                                             mod_guid = mod.Guid,
                                             Directory = flag,
-                                            enable = true,
+                                            enable = bool.Parse(tmp),
                                             file_path = item1.file_name,
                                             new_file_path = item1.file_replacement_name,
                                             type = (file_system.file_type)item1.type,
@@ -217,6 +230,24 @@ namespace Modtropica_server
             public List<string> Developer { get; set; }
             public List<string>? tags { get; set; }
             public List<string>? file_def { get; set; }
+            public List<setting_config>? config { get; set; }
+        }
+        public enum config_input_type
+        {
+            None = 0,
+            TextBox,
+            NumBox,
+            DateBox,
+            CheckBox,
+            ComboBox,
+            ColorBox
+        }
+        public class setting_config
+        {
+            public string Key { get; set; }
+            public config_input_type Input_Type { get; set; }
+            public string default_value { get; set; } = "";
+            public object Data { get; set; } = "";
         }
         public class mod_file_def
         {
@@ -240,7 +271,8 @@ namespace Modtropica_server
         public enum mod_script_type
         {
             none,
-            add,
+            java_script,
+            csharp_dll_plugin,
         }
         /// <summary>
         /// 

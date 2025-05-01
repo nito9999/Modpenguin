@@ -16,5 +16,10 @@ namespace Modtropica_server
         {
             InitializeComponent();
         }
+
+        private void setup_form_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
