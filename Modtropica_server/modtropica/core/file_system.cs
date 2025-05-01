@@ -140,6 +140,8 @@ namespace Modtropica_server.modtropica.core
 
                 foreach (file_override type in list)
                 {
+                    if (type.enable == false)
+                        continue;
                     if (type.load_order > load_order)
                     {
                         load_order = type.load_order;
@@ -147,6 +149,8 @@ namespace Modtropica_server.modtropica.core
                 }
                 foreach (file_override type in list)
                 {
+                    if (type.enable == false)
+                        continue;
                     if (type.load_order == load_order)
                     {
                         return type;
@@ -157,6 +161,8 @@ namespace Modtropica_server.modtropica.core
             {
                 foreach (file_override type in list)
                 {
+                    if (type.enable == false)
+                        continue;
                     if (type.load_order > load_order && url.Contains(type.file_path))
                     {
                         load_order = type.load_order;
@@ -164,7 +170,10 @@ namespace Modtropica_server.modtropica.core
                 }
                 foreach (file_override type in list)
                 {
-                    if (type.load_order == load_order)
+                    if (type.enable == false)
+                        continue;
+
+                    if (type.load_order >= load_order && url.Contains(type.file_path))
                     {
                         return type;
                     }

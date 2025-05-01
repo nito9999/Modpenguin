@@ -27,7 +27,12 @@ namespace Modtropica_server.server.server
         {
             _listener = new HttpListener();
             _listener.Prefixes.Add($"http://127.0.0.1:{port_pop_server}/");
-
+            if (POP_server.admin)
+            {
+                _listener.Prefixes.Add($"http://{POP_server.GetMyHost()}:{port_pop_server}/");
+                _listener.Prefixes.Add($"http://*:{port_pop_server}/");
+                Console.WriteLine($"running on {POP_server.GetMyHost()}:{port_pop_server}");
+            }
             POP_Server = this;
 
             RegisterRoutes();
@@ -238,16 +243,21 @@ namespace Modtropica_server.server.server
                     // Handle void return types
                     if (method.ReturnType == typeof(void))
                     {
+
+                        response.StatusCode = 200; // OK
+                        response_data = "{ \"success\": \"true\" }";
+                        
+                    }
+                    else if (method.ReturnType == typeof(bool))
+                    {
                         if ((bool)result == true)
                         {
                             response.StatusCode = 200; // OK
                             response_data = "{ \"success\": \"true\" }";
                         }
-                    }
-                    else if (method.ReturnType == typeof(bool))
-                    {
-                        response.StatusCode = 200; // OK
-                        response_data = "{ \"success\": \"true\" }";
+                        else
+                            response_data = null;
+
                     }
                     else
                     {

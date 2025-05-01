@@ -27,9 +27,11 @@ namespace Modtropica_server.server.server
         [Route(@"^www.poptropica.com/(?<filename>.+)\.swf$", "application/x-shockwave-flash", true)]
         public static byte[] file_path_swf(string filename)
         {
-            string path_url = Path.Combine("www.poptropica.com", filename + ".swf");
+            string path_url = "www.poptropica.com/" + filename + ".swf";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
+            return null;
+
             try
             {
                 byte[] bytes = new WebClient().DownloadData("https://web.archive.org/web/20120104233009/https://" + path_url);
@@ -65,9 +67,11 @@ namespace Modtropica_server.server.server
         [Route(@"^www.poptropica.com/(?<filename>.+)\.mp3$", "audio/mpeg", true)]
         public static byte[] file_path_mp3(string filename)
         {
-            string path_url = Path.Combine("www.poptropica.com", filename + ".mp3");
+            string path_url = "www.poptropica.com/" + filename + ".mp3";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
+            return null;
+
             try
             {
                 byte[] bytes = new WebClient().DownloadData("https://web.archive.org/web/20120104233009/https://" + path_url);
@@ -86,9 +90,11 @@ namespace Modtropica_server.server.server
         [Route(@"^www.poptropica.com/(?<filename>.+)\.txt$", "application/text", true)]
         public static byte[] file_path_txt(string filename)
         {
-            string path_url = Path.Combine("www.poptropica.com", filename + ".txt");
+            string path_url = "www.poptropica.com/" + filename + ".txt";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
+            return null;
+
             try
             {
                 string bytes = new WebClient().DownloadString("https://web.archive.org/web/20120104233009/https://" + path_url);
@@ -114,9 +120,11 @@ namespace Modtropica_server.server.server
         [Route(@"^www.poptropica.com/(?<filename>.+)\.xml$", "application/xml", true)]
         public static byte[] file_path_xml(string filename)
         {
-            string path_url = Path.Combine("www.poptropica.com", filename + ".xml");
+            string path_url = "www.poptropica.com/" + filename + ".xml";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
+            return null;
+
             try
             {
 

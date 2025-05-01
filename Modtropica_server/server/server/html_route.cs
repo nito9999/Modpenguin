@@ -21,6 +21,31 @@ namespace Modtropica_server.server.server
             string path_url = Path.Combine("www.poptropica.com/game/index.html");
             return File.ReadAllText(path_url);
         }
+        [Route("www.poptropica.com/loader.php", "text/html")]
+        public static string game_loader_html()
+        {
+            string scene = "Home";
+            string island_path = "Home";
+            string path = "gameplay";
+            Console.WriteLine($"scene: {scene} on island: {island_path} with path: {path}");
+
+            return as2_base_php.Base_php_gen(scene, island_path, path);
+        }
+        [Route("/uh.php", "text/html")]
+        public static string friends_as2_php()
+        {
+            return "{}";
+        }
+
+        [Route("www.poptropica.com/crash-record.php", "text/html")]
+        public static bool game_crash_record(string version, string stack)
+        {
+
+            Console.WriteLine($"Uh oh poptropica crashed.\n" +
+                $"poptropica version: {version}\n" +
+                $"{stack}");
+            return false;
+        }
         [Route("www.poptropica.com/", "text/html")]
         public static string game_as2_html()
         {

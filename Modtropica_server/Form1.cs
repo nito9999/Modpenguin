@@ -29,7 +29,7 @@ namespace Modtropica_server
             }
             app_setting.app_setting.load_setting();
             main_Form = new mod_form();
-            main_Form.Show();
+            main_Form.Hide();
             this.Hide();
         }
         public static setup_form Setup_Form;

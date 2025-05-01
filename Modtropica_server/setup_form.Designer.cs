@@ -59,6 +59,7 @@
             Controls.Add(progressBar1);
             Name = "setup_form";
             Text = "setup_form";
+            Load += setup_form_Load;
             ResumeLayout(false);
             PerformLayout();
         }

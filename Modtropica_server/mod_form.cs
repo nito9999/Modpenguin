@@ -12,6 +12,9 @@ using Modtropica_server.modtropica.core;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using Modtropica_server.server.server;
 using Modtropica_server.server;
+using System.Drawing.Drawing2D;
+using Modtropica_server.ui;
+using Modtropica_server.app_setting;
 
 namespace Modtropica_server
 {
@@ -22,20 +25,102 @@ namespace Modtropica_server
             if (!File.Exists("Save_Data/App/server_setting.json"))
             {
                 setup.firsttime = true;
+                Form1.main_Form = this;
                 Form1.Setup_Form = new setup_form();
                 Form1.Setup_Form.Show();
+                this.Hide();
                 setup.program_setup();
+
             }
+
             app_setting.app_setting.load_setting();
             InitializeComponent();
         }
 
         private void mod_form_Load(object sender, EventArgs e)
         {
-            mod_form_load();
+            this.FormBorderStyle = FormBorderStyle.None;
+            Panel titleBar = this.title_panal;
+
+            titleBar.MouseDown += titleBar_MouseDown;
+            titleBar.MouseMove += titleBar_MouseMove;
+            titleBar.MouseUp += titleBar_MouseUp;
+
+
+            Button minimizeButton = new Button
+            {
+                Text = "-",
+                ForeColor = Color.White,
+                BackColor = Color.Gray,
+                FlatStyle = FlatStyle.Flat,
+                Width = 30,
+                Height = 30,
+                Dock = DockStyle.Right
+            };
+            titleBar.Controls.Add(minimizeButton);
+
+            Button closeButton = new Button
+            {
+                Text = "X",
+                ForeColor = Color.White,
+                BackColor = Color.Red,
+                FlatStyle = FlatStyle.Flat,
+                Width = 30,
+                Height = 30,
+                Dock = DockStyle.Right
+            };
+            titleBar.Controls.Add(closeButton);
+            closeButton.Click += (s, e) => Environment.Exit(0);
+
+            minimizeButton.Click += (s, e) => this.WindowState = FormWindowState.Minimized;
+            if (!File.Exists("game_data/pop.zip"))
+            {
+                this.Hide();
+            }
+            else
+                mod_form_load();
+
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            GraphicsPath path = new GraphicsPath();
+            path.AddArc(0, 0, 20, 20, 180, 90);
+            path.AddArc(this.Width - 20, 0, 20, 20, 270, 90);
+            path.AddArc(this.Width - 20, this.Height - 20, 20, 20, 0, 90);
+            path.AddArc(0, this.Height - 20, 20, 20, 90, 90);
+            path.CloseFigure();
+            this.Region = new Region(path);
+        }
+
+        private bool dragging = false;
+        private Point dragCursorPoint;
+        private Point dragFormPoint;
+
+        private void titleBar_MouseDown(object sender, MouseEventArgs e)
+        {
+            dragging = true;
+            dragCursorPoint = Cursor.Position;
+            dragFormPoint = this.Location;
+        }
+
+        private void titleBar_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                Point diff = Point.Subtract(Cursor.Position, (Size)dragCursorPoint);
+                this.Location = Point.Add(dragFormPoint, (Size)diff);
+            }
+        }
+
+        private void titleBar_MouseUp(object sender, MouseEventArgs e)
+        {
+            dragging = false;
         }
         public void mod_form_load()
         {
+            mod_data.setting_UI = new setting_ui();
+            mod_data.clear_modtropica_mod(); // for clearing data
             mod_data.load_modtropica_mod();
 
             foreach (mod_data.mod_base_info item in mod_data.mods)
@@ -64,18 +149,18 @@ namespace Modtropica_server
             }
         }
 
-       
+
 
         private void start_modtropica_button_Click(object sender, EventArgs e)
         {
             start_modtropica_button.Enabled = false;
             start_modtropica_button.BackColor = Color.DarkBlue;
-            //POP_Server = new POP_server_Routing();
-            POP_Server_old = new POP_server();
+            POP_Server = new POP_server_Routing();
+            //POP_Server_old = new POP_server();
         }
 
         public static POP_server POP_Server_old;
-        //public static POP_server_Routing POP_Server = null;
+        public static POP_server_Routing POP_Server = null;
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -110,10 +195,11 @@ namespace Modtropica_server
                 if (item.mod_Info.Guid == Guid_mod)
                 {
                     file_system.SetEnable_override(item.mod_Info.Guid, mod_enable);
-
+                    Mod_setting.SetModSetting(item.mod_Info.Guid, "enabled", mod_enable.ToString());
                 }
             }
         }
+        public static string slected_guid;
 
         private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -132,6 +218,11 @@ namespace Modtropica_server
             {
                 if (item.mod_Info.Guid == Guid_mod)
                 {
+                    slected_guid = item.mod_Info.Guid;
+                    if (item.mod_Info.config != null)
+                        mod_data.setting_UI.PopulateForm(item.mod_Info.config, slected_guid);
+                    else
+                        mod_data.setting_UI.PopulateForm(new List<mod_data.setting_config> (), slected_guid);
                     file_system.SetEnable_override(item.mod_Info.Guid, mod_enable);
                     mod_name.Text = item.name;
 
@@ -180,6 +271,11 @@ namespace Modtropica_server
         private void dataGridView1_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            //mod_data.setting_UI.Show();
         }
     }
 }
