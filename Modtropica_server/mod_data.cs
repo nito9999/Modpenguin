@@ -96,11 +96,14 @@ namespace Modtropica_server
         }
         public static void load_modtropica_mod()
         {
+            Console.WriteLine("getting mods from " + POP_server.mod_path);
+
             string[] strings = Directory.GetDirectories(POP_server.mod_path);
             foreach (string s in strings)
             {
                 try
                 {
+                    Console.WriteLine("loading " + s);
                     mod_info mod = JsonConvert.DeserializeObject<mod_info>(File.ReadAllText(Path.Combine(s, "modinfo.json")));
                     var tmp = Mod_setting.GetModSetting(mod.Guid, "enable");
                     mods.Add(new mod_base_info
@@ -149,11 +152,17 @@ namespace Modtropica_server
                                     }
                                 }
                             }
-                            catch {}
+                            catch (Exception e)
+                            {
+                                Console.WriteLine(e);
+                            }
                         }
                     }
                 }
-                catch {}
+                catch (Exception e2)
+                {
+                    Console.WriteLine(e2);
+                }
             }
             //Inject modtropica jpexs modded file
 

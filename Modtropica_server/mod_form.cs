@@ -240,7 +240,7 @@ namespace Modtropica_server
                 {
                     file_system.SetEnable_override(item.mod_Info.Guid, mod_enable);
                     item.enable = mod_enable;
-                    Mod_setting.SetModSetting(item.mod_Info.Guid, "enabled", mod_enable.ToString());
+                    Mod_setting.SetModSetting(item.mod_Info.Guid, "enable", mod_enable.ToString());
                 }
             }
         }

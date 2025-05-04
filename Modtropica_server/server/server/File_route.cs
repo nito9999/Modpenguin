@@ -40,6 +40,14 @@ namespace Modtropica_server.server.server
                 return File.ReadAllBytes(path_url);
             return null;
         }
+        [Route(@"^www.poptropica.com/(?<filename>.+)\.gif$", "image/gif", true)]
+        public static byte[] file_path_gif(string filename)
+        {
+            string path_url = "www.poptropica.com/" + filename + ".gif";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
         [Route(@"^www.poptropica.com/(?<filename>.+)\.ttf$", "font/ttf", true)]
         public static byte[] file_path_ttf(string filename)
         {

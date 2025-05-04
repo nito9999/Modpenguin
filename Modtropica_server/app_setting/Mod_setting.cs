@@ -36,7 +36,7 @@ namespace Modtropica_server.app_setting
             public string Value { get; set; }
         }
 
-        public static string SettingsPath = "/SaveData/app/Mod_setting.json";
+        public static string SettingsPath = "Save_Data/App/Mod_setting.json";
 
         private static Modtropica_setting _modSettings;
 
