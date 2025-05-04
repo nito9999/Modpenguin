@@ -24,6 +24,46 @@ namespace Modtropica_server.server.server
         public static string base_path = "game_data/pop_data/content/";
         public static string mod_path = "Mod_data/";
 
+        [Route(@"^www.poptropica.com/(?<filename>.+)\.js$", "application/javascript", true)]
+        public static byte[] file_path_js(string filename)
+        {
+            string path_url = "www.poptropica.com/" + filename + ".js";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
+        [Route(@"^www.poptropica.com/(?<filename>.+)\.png$", "image/png", true)]
+        public static byte[] file_path_png(string filename)
+        {
+            string path_url = "www.poptropica.com/" + filename + ".png";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
+        [Route(@"^www.poptropica.com/(?<filename>.+)\.ttf$", "font/ttf", true)]
+        public static byte[] file_path_ttf(string filename)
+        {
+            string path_url = "www.poptropica.com/" + filename + ".woff";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
+        [Route(@"^www.poptropica.com/(?<filename>.+)\.zip$", "application/zip", true)]
+        public static byte[] file_path_zip(string filename)
+        {
+            string path_url = "www.poptropica.com/" + filename + ".zip";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
+        [Route(@"^www.poptropica.com/(?<filename>.+)\.css$", "text/css", true)]
+        public static byte[] file_path_css(string filename)
+        {
+            string path_url = "www.poptropica.com/" + filename + ".css";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
         [Route(@"^www.poptropica.com/(?<filename>.+)\.swf$", "application/x-shockwave-flash", true)]
         public static byte[] file_path_swf(string filename)
         {

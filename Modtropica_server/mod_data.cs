@@ -155,6 +155,19 @@ namespace Modtropica_server
                 }
                 catch {}
             }
+            //Inject modtropica jpexs modded file
+
+            file_system.Add_override(new file_system.file_override
+            {
+                mod_guid = "poptropica_base_mod_loader",
+                enable = true,
+                load_order = -20000,
+                type = file_system.file_type.temp,
+                Directory = false,
+                file_path = "www.poptropica.com/game/shell.swf",
+                Directory_path = null,
+                new_file_path = "game/shell.swf",
+            });
         }
 
         public static List<mod_base_info> mods = new List<mod_base_info>()

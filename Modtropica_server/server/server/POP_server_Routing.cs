@@ -27,6 +27,7 @@ namespace Modtropica_server.server.server
         {
             _listener = new HttpListener();
             _listener.Prefixes.Add($"http://127.0.0.1:{port_pop_server}/");
+            
             if (POP_server.admin)
             {
                 _listener.Prefixes.Add($"http://{POP_server.GetMyHost()}:{port_pop_server}/");
@@ -287,7 +288,9 @@ namespace Modtropica_server.server.server
 
         private static void WriteResponse(HttpListenerResponse response, object response_data, string contentType = "")
         {
-
+            response.Headers.Add("Access-Control-Allow-Origin", "*");
+            response.Headers.Add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+            response.Headers.Add("Access-Control-Allow-Headers", "Content-Type, Authorization");
             if (response_data is string responseString)
             {
                 if (responseString.Length <= 0x1ff)
@@ -327,6 +330,7 @@ namespace Modtropica_server.server.server
             {
                 throw new InvalidOperationException("Unsupported response data type.");
             }
+
             Console.WriteLine($"POP_Server: End of request.\n");
 
             response.OutputStream.Close();

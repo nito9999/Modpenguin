@@ -70,7 +70,7 @@ namespace Modtropica_server.modtropica.core
         {
             foreach (file_override item in file_override_list)
             {
-                if (mod_guid == item.mod_guid)
+                if (mod_guid == item.mod_guid)  
                 {
                     if (file_path == item.file_path)
                     {
@@ -209,6 +209,10 @@ namespace Modtropica_server.modtropica.core
             rename,
             replace,
             add_link_file,
+            /// <summary>
+            /// load from the program temp folder
+            /// </summary>
+            temp,
         }
 
         /// <summary>
@@ -264,6 +268,11 @@ namespace Modtropica_server.modtropica.core
                             }
                         }
                     }
+                    if (item.mod_guid == "modtropica" && item.type == file_type.temp)
+                    {
+                        // script injector
+                        return File_IO.File.ReadAllBytes(File_IO.Path.Combine("game_data/temp", item.new_file_path));
+                    }
                 }
                 return File_IO.File.ReadAllBytes(File_IO.Path.Combine(POP_server.base_path, path));
             }
@@ -294,15 +303,11 @@ namespace Modtropica_server.modtropica.core
                 }
                 return File_IO.File.ReadAllText(File_IO.Path.Combine(POP_server.base_path, path));
             }
-
-            /*
-             img://core/ == Resources/
-            
-                        poptropica.png
-             
-             */
-
-
+            /// <summary>
+            /// load a image from the exe or the mod folder
+            /// </summary>
+            /// <param name="path"></param>
+            /// <returns></returns>
             public static byte[] load_image(string path)
             {
                 string temp = "";

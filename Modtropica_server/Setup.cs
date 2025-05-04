@@ -18,6 +18,8 @@ namespace Modtropica_server
 
             Directory.CreateDirectory("Save_Data/App/");
             Directory.CreateDirectory("game_data/pop_data/");
+            // for temp shit
+            Directory.CreateDirectory("game_data/temp/");
             Directory.CreateDirectory("Mod_data/");
             if (!File.Exists("game_data/pop.zip"))
             {

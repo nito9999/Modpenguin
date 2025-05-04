@@ -154,9 +154,53 @@ namespace Modtropica_server
         private void start_modtropica_button_Click(object sender, EventArgs e)
         {
             start_modtropica_button.Enabled = false;
-            start_modtropica_button.BackColor = Color.DarkBlue;
-            POP_Server = new POP_server_Routing();
+            start_modtropica_button.BackColor = Color.DarkGray;
+            string temp = "game_data/pop_data/content/www.poptropica.com/game/shell.swf";
+            if (!File.Exists(temp))
+                goto start_server_now;
+            goto start_server_now;
+            modtropica.flashtools.Jpexs_tool.check_jpexs();
+            string temp2 = "game_data/temp/tmp0.swf";
+            File.Copy(temp, temp2, true);
+
+            Directory.CreateDirectory("game_data/temp/game/");
+            Console.WriteLine("Pop_patcher as3: starting to patch shell.swf");
+
+            for (int idx = 0; idx < mod_data.mods.Count; idx++)
+            {
+                temp = "game_data/temp/tmp1.swf";
+
+                mod_data.mod_base_info? item = mod_data.mods[idx];
+                if (item.enable)
+                {
+                    if (!string.IsNullOrEmpty(item.Directory_path))
+                    {
+                        if (Directory.Exists(Path.Combine(item.Directory_path, "script/as3")))
+                        {
+                            Console.WriteLine("Pop_patcher as3: patching shell.swf from dir " + Path.Combine(item.Directory_path, "script/as3"));
+
+                            modtropica.flashtools.Jpexs_tool.ImportScript(
+                                temp,
+                                temp2,
+                                Path.Combine(item.Directory_path, "script/as3")
+                                );
+                        }
+                    }
+                }
+
+                File.Copy(temp2, temp, true);
+            }
+            File.Move(temp2, "game_data/temp/game/shell.swf", true);
+            Console.WriteLine("Pop_patcher as3: Patched shell.swf");
+        start_server_now:
+            start_server();
             //POP_Server_old = new POP_server();
+        }
+        private static void start_server()
+        {
+            POP_Server = new POP_server_Routing();
+
+            //new Thread(server.server.NewFolder.https_server.https_Main).Start();
         }
 
         public static POP_server POP_Server_old;
@@ -195,6 +239,7 @@ namespace Modtropica_server
                 if (item.mod_Info.Guid == Guid_mod)
                 {
                     file_system.SetEnable_override(item.mod_Info.Guid, mod_enable);
+                    item.enable = mod_enable;
                     Mod_setting.SetModSetting(item.mod_Info.Guid, "enabled", mod_enable.ToString());
                 }
             }
