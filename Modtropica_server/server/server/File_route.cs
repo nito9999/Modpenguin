@@ -101,8 +101,11 @@ namespace Modtropica_server.server.server
          */
 
         [Route("www.poptropica.com/brain/track.php", "application/text")]
-        public static string brain_track()
+        public static string brain_track(string @event, string cluster, string scene)
         {
+            Console.WriteLine($"\r\n\r\nPOP_TRACKER: event {@event}, cluster {cluster}, scene {scene}\r\n\r\n");
+            if (@event == "SceneLoaded")
+                modtropica.core.conditional_system.Set_island(scene, cluster);
             return "";
         }
 

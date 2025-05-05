@@ -133,9 +133,22 @@ namespace Modtropica_server
                                     foreach (mod_file_data item1 in mod_file.file_Datas)
                                     {
                                         bool flag = false;
+
                                         if (item1.is_dir != null && item1.is_dir == true)
                                         {
                                             flag = item1.is_dir;
+                                        }
+
+                                        if (item1.type == mod_file_type.sdf)
+                                        {
+                                            Console.WriteLine("Conditional file!");
+
+                                        }
+                                        List<mod_conditional_data> conditional_Datas = new List<mod_conditional_data>();
+                                        if (item1.file_Conditions != null)
+                                        {
+                                            Console.WriteLine("Conditional file!");
+                                            conditional_Datas = item1.file_Conditions;
                                         }
                                         file_system.Add_override(new file_system.file_override
                                         {
@@ -146,7 +159,8 @@ namespace Modtropica_server
                                             new_file_path = item1.file_replacement_name,
                                             type = (file_system.file_type)item1.type,
                                             load_order = load_order,
-                                            Directory_path = s
+                                            Directory_path = s,
+                                            conditional_Data = item1.file_Conditions
                                         });
                                         load_order += 1;
                                     }
@@ -282,6 +296,33 @@ namespace Modtropica_server
             public bool is_dir { get; set; } = false;
             public string file_name { get; set; }
             public string? file_replacement_name { get; set; }
+            public List<mod_conditional_data>? file_Conditions { get; set; }
+        }
+        public class mod_conditional_data
+        {
+            public mod_conditional_type Condition_type { get; set; }
+            public string data_1 { get; set; } = "";
+            public string data_2 { get; set; } = "";
+            public bool inverted { get; set; } = false;
+            public bool required { get; set; } = false;
+        }
+        /// <summary>
+        /// the condition that the file override
+        /// </summary>
+        public enum mod_conditional_type
+        {
+            none,
+            /// <summary>
+            /// this it for when poptropica is in a scene
+            /// </summary>
+            inScene,
+            timeBefore,
+            timebetween,
+            timeather,
+            islandWin,
+            item_get,
+            item_removed,
+            event_hit,
         }
         public class mod_script_data
         {
@@ -306,6 +347,9 @@ namespace Modtropica_server
             add,
             rename,
             merge, // it only work when is_dir is true 
+            daa,
+            feef,
+            sdf
         }
     }
 }

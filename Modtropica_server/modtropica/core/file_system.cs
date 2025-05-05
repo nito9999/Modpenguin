@@ -163,7 +163,7 @@ namespace Modtropica_server.modtropica.core
                 {
                     if (type.enable == false)
                         continue;
-                    if (type.load_order > load_order && url.Contains(type.file_path))
+                    if (type.load_order > load_order && url.ToLower().Contains(type.file_path.ToLower()))
                     {
                         load_order = type.load_order;
                     }
@@ -172,8 +172,7 @@ namespace Modtropica_server.modtropica.core
                 {
                     if (type.enable == false)
                         continue;
-
-                    if (type.load_order >= load_order && url.Contains(type.file_path))
+                    if (type.load_order >= load_order && url.ToLower().Contains(type.file_path.ToLower()))
                     {
                         return type;
                     }
@@ -200,6 +199,7 @@ namespace Modtropica_server.modtropica.core
             public bool enable;
             public int load_order;
             public file_type type;
+            public List<mod_data.mod_conditional_data>? conditional_Data;
         }
         public enum file_type
         {
@@ -213,6 +213,10 @@ namespace Modtropica_server.modtropica.core
             /// load from the program temp folder
             /// </summary>
             temp,
+            /// <summary>
+            /// for remaping file to poptropica
+            /// </summary>
+            replace_self,
         }
 
         /// <summary>
@@ -229,9 +233,16 @@ namespace Modtropica_server.modtropica.core
                     {
                         if (item.file_path == path)
                         {
+                            if (item.conditional_Data != null)
+                                if (!conditional_system.Check_if_condition_compled(item.conditional_Data))
+                                    goto skipped_file;
                             if(item.type == file_type.remove)
                             {
                                 return false;
+                            }
+                            else if (item.type == file_type.replace_self)
+                            {
+                                return File_IO.File.Exists(File_IO.Path.Combine(POP_server.base_path, item.new_file_path));
                             }
                             else if (item.type == file_type.add || item.type == file_type.add_link_file)
                             {
@@ -241,6 +252,7 @@ namespace Modtropica_server.modtropica.core
                         }
                     }
                 }
+            skipped_file:
                 return File_IO.File.Exists(File_IO.Path.Combine(POP_server.base_path, path));
             }
 
@@ -253,6 +265,9 @@ namespace Modtropica_server.modtropica.core
                     {
                         if (item.file_path == path)
                         {
+                            if (item.conditional_Data != null)
+                                if (!conditional_system.Check_if_condition_compled(item.conditional_Data))
+                                    goto skipped_file;
                             Console.WriteLine($"{path} is same for {item.file_path}");
                             if (item.type == file_type.add)
                             {
@@ -261,6 +276,10 @@ namespace Modtropica_server.modtropica.core
                             else if (item.type == file_type.replace)
                             {
                                 return File_IO.File.ReadAllBytes(File_IO.Path.Combine(item.Directory_path, path));
+                            }
+                            else if (item.type == file_type.replace_self)
+                            {
+                                return File_IO.File.ReadAllBytes(File_IO.Path.Combine(POP_server.base_path, item.new_file_path));
                             }
                             else if (item.type == file_type.rename || item.type == file_type.add_link_file)
                             {
@@ -274,6 +293,8 @@ namespace Modtropica_server.modtropica.core
                         return File_IO.File.ReadAllBytes(File_IO.Path.Combine("game_data/temp", item.new_file_path));
                     }
                 }
+            skipped_file:
+
                 return File_IO.File.ReadAllBytes(File_IO.Path.Combine(POP_server.base_path, path));
             }
 
@@ -286,6 +307,9 @@ namespace Modtropica_server.modtropica.core
                     {
                         if (item.file_path == path)
                         {
+                            if (item.conditional_Data != null)
+                                if (!conditional_system.Check_if_condition_compled(item.conditional_Data))
+                                    goto skipped_file;
                             if (item.type == file_type.add)
                             {
                                 return File_IO.File.ReadAllText(File_IO.Path.Combine(item.Directory_path, item.new_file_path));
@@ -301,6 +325,8 @@ namespace Modtropica_server.modtropica.core
                         }
                     }
                 }
+            skipped_file:
+
                 return File_IO.File.ReadAllText(File_IO.Path.Combine(POP_server.base_path, path));
             }
             /// <summary>

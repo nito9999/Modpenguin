@@ -228,6 +228,7 @@ namespace Modtropica_server.server.server
                         {
                             // Extract URL parameters
                             var paramName = parameters[i].Name;
+
                             if (match.Groups[paramName]?.Success == true)
                             {
                                 args[i] = Convert.ChangeType(match.Groups[paramName].Value, paramType);
@@ -238,31 +239,38 @@ namespace Modtropica_server.server.server
                             throw new InvalidOperationException($"Unsupported parameter type: {paramType}");
                         }
                     }
-                    // Invoke the handler
-                    var result = method.Invoke(null, args);
-
-                    // Handle void return types
-                    if (method.ReturnType == typeof(void))
+                    try
                     {
+                        // Invoke the handler
+                        var result = method.Invoke(null, args);
 
-                        response.StatusCode = 200; // OK
-                        response_data = "{ \"success\": \"true\" }";
-                        
-                    }
-                    else if (method.ReturnType == typeof(bool))
-                    {
-                        if ((bool)result == true)
+                        // Handle void return types
+                        if (method.ReturnType == typeof(void))
                         {
+
                             response.StatusCode = 200; // OK
                             response_data = "{ \"success\": \"true\" }";
+                        
+                        }
+                        else if (method.ReturnType == typeof(bool))
+                        {
+                            if ((bool)result == true)
+                            {
+                                response.StatusCode = 200; // OK
+                                response_data = "{ \"success\": \"true\" }";
+                            }
+                            else
+                                response_data = null;
+
                         }
                         else
-                            response_data = null;
-
+                        {
+                            response_data = result;
+                        }
                     }
-                    else
+                    catch
                     {
-                        response_data = result;
+                        response_data = null;
                     }
                     break;
                 }

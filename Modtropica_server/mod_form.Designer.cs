@@ -34,14 +34,10 @@
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
             panel1 = new Panel();
+            button1 = new Button();
             mod_rescan = new Button();
             start_modtropica_button = new Button();
             dataGridView1 = new DataGridView();
-            enable = new DataGridViewCheckBoxColumn();
-            name = new DataGridViewTextBoxColumn();
-            icon = new DataGridViewImageColumn();
-            mod_guid = new DataGridViewTextBoxColumn();
-            image_name = new DataGridViewTextBoxColumn();
             logo_big_Box = new PictureBox();
             info_disc = new TextBox();
             dev_box = new TextBox();
@@ -49,7 +45,11 @@
             Tag_list = new TextBox();
             date_box = new TextBox();
             title_panal = new Panel();
-            button1 = new Button();
+            enable = new DataGridViewCheckBoxColumn();
+            name = new DataGridViewTextBoxColumn();
+            icon = new DataGridViewImageColumn();
+            mod_guid = new DataGridViewTextBoxColumn();
+            image_name = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)logo_big_Box).BeginInit();
@@ -65,12 +65,22 @@
             panel1.Controls.Add(dataGridView1);
             panel1.Location = new Point(12, 12);
             panel1.Name = "panel1";
-            panel1.Size = new Size(433, 545);
+            panel1.Size = new Size(469, 749);
             panel1.TabIndex = 0;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(369, 717);
+            button1.Name = "button1";
+            button1.Size = new Size(87, 23);
+            button1.TabIndex = 4;
+            button1.Text = "open setting";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // mod_rescan
             // 
-            mod_rescan.Location = new Point(8, 515);
+            mod_rescan.Location = new Point(3, 717);
             mod_rescan.Name = "mod_rescan";
             mod_rescan.Size = new Size(120, 23);
             mod_rescan.TabIndex = 3;
@@ -80,7 +90,7 @@
             // 
             // start_modtropica_button
             // 
-            start_modtropica_button.Location = new Point(8, 487);
+            start_modtropica_button.Location = new Point(3, 688);
             start_modtropica_button.Name = "start_modtropica_button";
             start_modtropica_button.Size = new Size(120, 23);
             start_modtropica_button.TabIndex = 2;
@@ -127,12 +137,101 @@
             dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle5;
             dataGridView1.RowTemplate.DefaultCellStyle.BackColor = Color.FromArgb(64, 64, 64);
             dataGridView1.RowTemplate.DefaultCellStyle.ForeColor = Color.White;
-            dataGridView1.Size = new Size(413, 472);
+            dataGridView1.Size = new Size(448, 673);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellClick += dataGridView1_CellContentClick_1;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick_2;
             dataGridView1.CellValueChanged += DataGridView1_CellValueChanged;
             dataGridView1.CurrentCellDirtyStateChanged += dataGridView1_CurrentCellDirtyStateChanged;
+            // 
+            // logo_big_Box
+            // 
+            logo_big_Box.BackColor = Color.FromArgb(63, 63, 63);
+            logo_big_Box.BackgroundImageLayout = ImageLayout.Stretch;
+            logo_big_Box.BorderStyle = BorderStyle.FixedSingle;
+            logo_big_Box.Location = new Point(487, 76);
+            logo_big_Box.Name = "logo_big_Box";
+            logo_big_Box.Size = new Size(443, 456);
+            logo_big_Box.SizeMode = PictureBoxSizeMode.StretchImage;
+            logo_big_Box.TabIndex = 1;
+            logo_big_Box.TabStop = false;
+            // 
+            // info_disc
+            // 
+            info_disc.AcceptsReturn = true;
+            info_disc.BackColor = Color.FromArgb(63, 63, 63);
+            info_disc.BorderStyle = BorderStyle.FixedSingle;
+            info_disc.ForeColor = Color.White;
+            info_disc.HideSelection = false;
+            info_disc.Location = new Point(487, 538);
+            info_disc.Multiline = true;
+            info_disc.Name = "info_disc";
+            info_disc.ReadOnly = true;
+            info_disc.Size = new Size(693, 223);
+            info_disc.TabIndex = 2;
+            // 
+            // dev_box
+            // 
+            dev_box.AcceptsReturn = true;
+            dev_box.BackColor = Color.FromArgb(63, 63, 63);
+            dev_box.BorderStyle = BorderStyle.FixedSingle;
+            dev_box.ForeColor = Color.White;
+            dev_box.HideSelection = false;
+            dev_box.Location = new Point(936, 294);
+            dev_box.Multiline = true;
+            dev_box.Name = "dev_box";
+            dev_box.ReadOnly = true;
+            dev_box.Size = new Size(244, 238);
+            dev_box.TabIndex = 3;
+            // 
+            // mod_name
+            // 
+            mod_name.AcceptsReturn = true;
+            mod_name.BackColor = Color.FromArgb(63, 63, 63);
+            mod_name.BorderStyle = BorderStyle.FixedSingle;
+            mod_name.ForeColor = Color.White;
+            mod_name.HideSelection = false;
+            mod_name.Location = new Point(487, 48);
+            mod_name.Name = "mod_name";
+            mod_name.ReadOnly = true;
+            mod_name.Size = new Size(443, 22);
+            mod_name.TabIndex = 4;
+            // 
+            // Tag_list
+            // 
+            Tag_list.AcceptsReturn = true;
+            Tag_list.BackColor = Color.FromArgb(63, 63, 63);
+            Tag_list.BorderStyle = BorderStyle.FixedSingle;
+            Tag_list.ForeColor = Color.White;
+            Tag_list.HideSelection = false;
+            Tag_list.Location = new Point(936, 76);
+            Tag_list.Multiline = true;
+            Tag_list.Name = "Tag_list";
+            Tag_list.ReadOnly = true;
+            Tag_list.Size = new Size(244, 212);
+            Tag_list.TabIndex = 5;
+            // 
+            // date_box
+            // 
+            date_box.AcceptsReturn = true;
+            date_box.BackColor = Color.FromArgb(63, 63, 63);
+            date_box.BorderStyle = BorderStyle.FixedSingle;
+            date_box.ForeColor = Color.White;
+            date_box.HideSelection = false;
+            date_box.Location = new Point(936, 48);
+            date_box.Name = "date_box";
+            date_box.ReadOnly = true;
+            date_box.Size = new Size(244, 22);
+            date_box.TabIndex = 6;
+            // 
+            // title_panal
+            // 
+            title_panal.BackColor = Color.DarkSlateGray;
+            title_panal.BorderStyle = BorderStyle.Fixed3D;
+            title_panal.Location = new Point(487, 12);
+            title_panal.Name = "title_panal";
+            title_panal.Size = new Size(693, 30);
+            title_panal.TabIndex = 7;
             // 
             // enable
             // 
@@ -145,10 +244,11 @@
             // 
             // name
             // 
-            name.Frozen = true;
+            name.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             name.HeaderText = "name";
             name.Name = "name";
             name.ReadOnly = true;
+            name.Resizable = DataGridViewTriState.False;
             // 
             // icon
             // 
@@ -157,6 +257,7 @@
             icon.Name = "icon";
             icon.ReadOnly = true;
             icon.Resizable = DataGridViewTriState.False;
+            icon.Visible = false;
             // 
             // mod_guid
             // 
@@ -171,111 +272,12 @@
             image_name.Name = "image_name";
             image_name.Visible = false;
             // 
-            // logo_big_Box
-            // 
-            logo_big_Box.BackColor = Color.FromArgb(63, 63, 63);
-            logo_big_Box.BackgroundImageLayout = ImageLayout.Stretch;
-            logo_big_Box.BorderStyle = BorderStyle.FixedSingle;
-            logo_big_Box.Location = new Point(451, 79);
-            logo_big_Box.Name = "logo_big_Box";
-            logo_big_Box.Size = new Size(257, 240);
-            logo_big_Box.SizeMode = PictureBoxSizeMode.StretchImage;
-            logo_big_Box.TabIndex = 1;
-            logo_big_Box.TabStop = false;
-            // 
-            // info_disc
-            // 
-            info_disc.AcceptsReturn = true;
-            info_disc.BackColor = Color.FromArgb(63, 63, 63);
-            info_disc.BorderStyle = BorderStyle.FixedSingle;
-            info_disc.ForeColor = Color.White;
-            info_disc.HideSelection = false;
-            info_disc.Location = new Point(451, 325);
-            info_disc.Multiline = true;
-            info_disc.Name = "info_disc";
-            info_disc.ReadOnly = true;
-            info_disc.Size = new Size(529, 232);
-            info_disc.TabIndex = 2;
-            // 
-            // dev_box
-            // 
-            dev_box.AcceptsReturn = true;
-            dev_box.BackColor = Color.FromArgb(63, 63, 63);
-            dev_box.BorderStyle = BorderStyle.FixedSingle;
-            dev_box.ForeColor = Color.White;
-            dev_box.HideSelection = false;
-            dev_box.Location = new Point(714, 191);
-            dev_box.Multiline = true;
-            dev_box.Name = "dev_box";
-            dev_box.ReadOnly = true;
-            dev_box.Size = new Size(266, 128);
-            dev_box.TabIndex = 3;
-            // 
-            // mod_name
-            // 
-            mod_name.AcceptsReturn = true;
-            mod_name.BackColor = Color.FromArgb(63, 63, 63);
-            mod_name.BorderStyle = BorderStyle.FixedSingle;
-            mod_name.ForeColor = Color.White;
-            mod_name.HideSelection = false;
-            mod_name.Location = new Point(451, 51);
-            mod_name.Name = "mod_name";
-            mod_name.ReadOnly = true;
-            mod_name.Size = new Size(257, 22);
-            mod_name.TabIndex = 4;
-            // 
-            // Tag_list
-            // 
-            Tag_list.AcceptsReturn = true;
-            Tag_list.BackColor = Color.FromArgb(63, 63, 63);
-            Tag_list.BorderStyle = BorderStyle.FixedSingle;
-            Tag_list.ForeColor = Color.White;
-            Tag_list.HideSelection = false;
-            Tag_list.Location = new Point(714, 79);
-            Tag_list.Multiline = true;
-            Tag_list.Name = "Tag_list";
-            Tag_list.ReadOnly = true;
-            Tag_list.Size = new Size(266, 106);
-            Tag_list.TabIndex = 5;
-            // 
-            // date_box
-            // 
-            date_box.AcceptsReturn = true;
-            date_box.BackColor = Color.FromArgb(63, 63, 63);
-            date_box.BorderStyle = BorderStyle.FixedSingle;
-            date_box.ForeColor = Color.White;
-            date_box.HideSelection = false;
-            date_box.Location = new Point(714, 51);
-            date_box.Name = "date_box";
-            date_box.ReadOnly = true;
-            date_box.Size = new Size(266, 22);
-            date_box.TabIndex = 6;
-            // 
-            // title_panal
-            // 
-            title_panal.BackColor = Color.DarkSlateGray;
-            title_panal.BorderStyle = BorderStyle.Fixed3D;
-            title_panal.Location = new Point(451, 12);
-            title_panal.Name = "title_panal";
-            title_panal.Size = new Size(529, 30);
-            title_panal.TabIndex = 7;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(334, 515);
-            button1.Name = "button1";
-            button1.Size = new Size(87, 23);
-            button1.TabIndex = 4;
-            button1.Text = "open setting";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // mod_form
             // 
             AutoScaleDimensions = new SizeF(7F, 14F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(64, 64, 64);
-            ClientSize = new Size(992, 569);
+            ClientSize = new Size(1192, 769);
             Controls.Add(title_panal);
             Controls.Add(date_box);
             Controls.Add(Tag_list);
@@ -305,15 +307,15 @@
         private TextBox info_disc;
         private TextBox dev_box;
         private TextBox mod_name;
-        private DataGridViewCheckBoxColumn enable;
-        private DataGridViewTextBoxColumn name;
-        private DataGridViewImageColumn icon;
-        private DataGridViewTextBoxColumn mod_guid;
-        private DataGridViewTextBoxColumn image_name;
         private Button mod_rescan;
         private TextBox Tag_list;
         private TextBox date_box;
         private Panel title_panal;
         private Button button1;
+        private DataGridViewCheckBoxColumn enable;
+        private DataGridViewTextBoxColumn name;
+        private DataGridViewImageColumn icon;
+        private DataGridViewTextBoxColumn mod_guid;
+        private DataGridViewTextBoxColumn image_name;
     }
 }
