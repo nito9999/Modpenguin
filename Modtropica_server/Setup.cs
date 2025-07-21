@@ -17,24 +17,25 @@ namespace Modtropica_server
             Console.WriteLine("Setting up... (May take a minute to download everything.)");
 
             Directory.CreateDirectory("Save_Data/App/");
-            Directory.CreateDirectory("game_data/pop_data/");
+            Directory.CreateDirectory("game_data/game_files/");
+
             // for temp shit
             Directory.CreateDirectory("game_data/temp/");
             Directory.CreateDirectory("Mod_data/");
-            if (!File.Exists("game_data/pop.zip"))
+            /*if (!File.Exists("game_data/pop.zip"))
             {
                 WebClient client = new WebClient();
                 client.DownloadProgressChanged += client_DownloadProgressChanged;
                 client.DownloadDataCompleted += Client_DownloadDataCompleted;
-                Form1.Setup_Form.setup_text.Text = "downloading poptropica gamezip";
-                Console.WriteLine("downloading poptropica gamezip from archive.org [AS3 ver]");
+                Form1.Setup_Form.setup_text.Text = "downloading gamezip";
+                Console.WriteLine("downloading gamezip from archive.org [AS3 ver]");
 
                 client.DownloadDataAsync(new Uri("https://archive.org/download/poptropica-gamezips/AS3/83e1b5e7-4282-4bbd-868e-dcfa965e4abf.zip"));
                 //File.WriteAllBytes("game_data/pop.zip", bytes);
             }
-            else
+            else*/
             {
-                Form1.Setup_Form.setup_text.Text = "found poptropica gamezip";
+                //Form1.Setup_Form.setup_text.Text = "found gamezip";
                 program_setup_pop();
             }
         }
@@ -48,6 +49,7 @@ namespace Modtropica_server
         public static void program_setup_pop()
         {
             Form1.main_Form.Hide();
+            /*
             using (ZipInputStream s = new ZipInputStream(File.OpenRead("game_data/pop.zip")))
             {
                 
@@ -90,7 +92,7 @@ namespace Modtropica_server
                         }
                     }
                 }
-            }
+            }*/
             Form1.Setup_Form.Visible = false;
         }
 

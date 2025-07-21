@@ -1,5 +1,4 @@
-﻿using Modtropica_server.poptropica;
-using Modtropica_server.poptropica_php_emu;
+﻿using Modtropica_server.poptropica_php_emu;
 using Newtonsoft.Json;
 using System.Collections.Specialized;
 using System.Net;
@@ -48,11 +47,11 @@ namespace Modtropica_server
         {
             try
             {
-                this.listener.Prefixes.Add($"http://127.0.0.1:{port_pop_server}/");
+                this.listener.Prefixes.Add($"http://127.0.0.1:{server_port_main}/");
                 if (admin)
                 {
-                    this.listener.Prefixes.Add($"http://{GetMyHost()}:{port_pop_server}/");
-                    Console.WriteLine($"running on {GetMyHost()}:{port_pop_server}");
+                    this.listener.Prefixes.Add($"http://{GetMyHost()}:{server_port_main}/");
+                    Console.WriteLine($"running on {GetMyHost()}:{server_port_main}");
                 }
                 this.listener.Start();
                 Console.WriteLine("[POP_server.cs] is listening.");
@@ -192,7 +191,7 @@ namespace Modtropica_server
                                 //Monitor.php
                                 else if (temp_url.Contains("get_island_names.php"))
                                 {
-                                    s = "answer=ok&json=" + Uri.EscapeDataString(JsonConvert.SerializeObject(island_data.Island_Names));
+                                    s = "answer=ok&json=";// + Uri.EscapeDataString(JsonConvert.SerializeObject(island_data.Island_Names));
                                     raw_data = false;
                                 }
                                 else if (temp_url.Contains("brain/track.php"))
@@ -261,7 +260,7 @@ namespace Modtropica_server
                     }
                     else if (temp_url.Contains("get_island_names.php"))
                     {
-                        s = "answer=ok&json=" + Uri.EscapeDataString(JsonConvert.SerializeObject(island_data.Island_Names));
+                        s = "answer=ok&json=";// + Uri.EscapeDataString(JsonConvert.SerializeObject(island_data.Island_Names));
                         raw_data = false;
                     }
                     else if (temp_url.Contains("brain/track.php"))
@@ -373,12 +372,12 @@ namespace Modtropica_server
             return collection;
         }
 
-        public static string base_pop_path = $"{base_path}/www.poptropica.com";
-        public static string base_quantserve_path = $"{base_path}/flash.quantserve.com";
-        public static string base_path = "game_data/pop_data/content/";
+        public static string play_clubpenguin_path = $"{base_path}/play.clubpenguin.com";
+        public static string media_clubpenguin_path = $"{base_path}/media.clubpenguin.com";
+        public static string base_path = "game_data/game_files/";
         public static string mod_path = "Mod_data/";
 
-        public static int port_pop_server = 22500;
+        public static int server_port_main = 22500;
 
         public static string BlankResponse = "";
         public static string BracketResponse = "[]";

@@ -19,102 +19,48 @@ namespace Modtropica_server.server.server
     class File_route
     {
 
-        public static string base_pop_path = $"{base_path}/www.poptropica.com";
-        public static string base_quantserve_path = $"{base_path}/flash.quantserve.com";
-        public static string base_path = "game_data/pop_data/content/";
+        public static string play_clubpenguin_path = $"{base_path}/play.clubpenguin.com";
+        public static string media_clubpenguin_path = $"{base_path}/media.clubpenguin.com";
+        public static string base_path = "game_data/game_files/";
         public static string mod_path = "Mod_data/";
 
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.js$", "application/javascript", true)]
+        [Route(@"^play.clubpenguin.com/(?<filename>.+)\.js$", "application/javascript", true)]
         public static byte[] file_path_js(string filename)
         {
-            string path_url = "www.poptropica.com/" + filename + ".js";
+            string path_url = "play.clubpenguin.com/" + filename + ".js";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
             return null;
         }
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.png$", "image/png", true)]
-        public static byte[] file_path_png(string filename)
-        {
-            string path_url = "www.poptropica.com/" + filename + ".png";
-            if (File.Exists(path_url))
-                return File.ReadAllBytes(path_url);
-            return null;
-        }
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.gif$", "image/gif", true)]
+
+        [Route(@"^play.clubpenguin.com/(?<filename>.+)\.gif$", "image/gif", true)]
         public static byte[] file_path_gif(string filename)
         {
-            string path_url = "www.poptropica.com/" + filename + ".gif";
+            string path_url = "play.clubpenguin.com/" + filename + ".gif";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
             return null;
         }
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.ttf$", "font/ttf", true)]
-        public static byte[] file_path_ttf(string filename)
-        {
-            string path_url = "www.poptropica.com/" + filename + ".woff";
-            if (File.Exists(path_url))
-                return File.ReadAllBytes(path_url);
-            return null;
-        }
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.zip$", "application/zip", true)]
-        public static byte[] file_path_zip(string filename)
-        {
-            string path_url = "www.poptropica.com/" + filename + ".zip";
-            if (File.Exists(path_url))
-                return File.ReadAllBytes(path_url);
-            return null;
-        }
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.css$", "text/css", true)]
+
+        [Route(@"^play.clubpenguin.com/(?<filename>.+)\.css$", "text/css", true)]
         public static byte[] file_path_css(string filename)
         {
-            string path_url = "www.poptropica.com/" + filename + ".css";
+            string path_url = "play.clubpenguin.com/" + filename + ".css";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
             return null;
         }
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.swf$", "application/x-shockwave-flash", true)]
+
+        [Route(@"^play.clubpenguin.com/(?<filename>.+)\.swf$", "application/x-shockwave-flash", true)]
         public static byte[] file_path_swf(string filename)
         {
-            string path_url = "www.poptropica.com/" + filename + ".swf";
+            string path_url = "play.clubpenguin.com/" + filename + ".swf";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
             return null;
-
-            try
-            {
-                byte[] bytes = new WebClient().DownloadData("https://web.archive.org/web/20120104233009/https://" + path_url);
-                
-                File_real.WriteAllBytes(Path.Combine(POP_server.base_path, path_url), bytes);
-
-                if (File.Exists(path_url))
-                    return File.ReadAllBytes(path_url);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            return null;
         }
+
         /*
-         http://www.poptropica.com/brain/track.php
-         
-         */
-
-        [Route("www.poptropica.com/brain/track.php", "application/text")]
-        public static string brain_track(string @event, string cluster, string scene)
-        {
-            Console.WriteLine($"\r\n\r\nPOP_TRACKER: event {@event}, cluster {cluster}, scene {scene}\r\n\r\n");
-            if (@event == "SceneLoaded")
-                modtropica.core.conditional_system.Set_island(scene, cluster);
-            return "";
-        }
-
-        [Route("www.poptropica.com/getPrefix.php", "application/text")]
-        public static string getPrefix_php()
-        {
-            return "http://www.poptropica.com";
-        }
-
         [Route(@"^www.poptropica.com/(?<filename>.+)\.mp3$", "audio/mpeg", true)]
         public static byte[] file_path_mp3(string filename)
         {
@@ -122,52 +68,17 @@ namespace Modtropica_server.server.server
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
             return null;
+        }*/
 
-            try
-            {
-                byte[] bytes = new WebClient().DownloadData("https://web.archive.org/web/20120104233009/https://" + path_url);
-
-                File_real.WriteAllBytes(Path.Combine(POP_server.base_path, path_url), bytes);
-                if (File.Exists(path_url))
-                    return File.ReadAllBytes(path_url);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-            return null;
-        }
-
-        [Route(@"^www.poptropica.com/(?<filename>.+)\.txt$", "application/text", true)]
+        [Route(@"^play.clubpenguin.com/(?<filename>.+)\.txt$", "application/text", true)]
         public static byte[] file_path_txt(string filename)
         {
-            string path_url = "www.poptropica.com/" + filename + ".txt";
+            string path_url = "play.clubpenguin.com/" + filename + ".txt";
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
             return null;
-
-            try
-            {
-                string bytes = new WebClient().DownloadString("https://web.archive.org/web/20120104233009/https://" + path_url);
-                if (bytes.Contains(" type=\"text/javascript\">") || bytes.IsNullOrEmpty())
-                {
-                    bytes = new WebClient().DownloadString(path_url.Replace("www.poptropica.com/game/", "https://www.poptropica.com/cmg/play/resources/"));
-                }
-                File_real.WriteAllText(POP_server.base_pop_path + filename + ".txt", bytes);
-                if (File.Exists(path_url))
-                    return File.ReadAllBytes(path_url);
-            }
-            catch
-            {
-                string bytes = new WebClient().DownloadString(path_url.Replace("www.poptropica.com/game/", "https://www.poptropica.com/cmg/play/resources/"));
-
-                File_real.WriteAllText(POP_server.base_pop_path + filename + ".txt", bytes);
-                if (File.Exists(path_url))
-                    return File.ReadAllBytes(path_url);
-            }
-            return null;
         }
-
+        /*
         [Route(@"^www.poptropica.com/(?<filename>.+)\.xml$", "application/xml", true)]
         public static byte[] file_path_xml(string filename)
         {
@@ -175,51 +86,6 @@ namespace Modtropica_server.server.server
             if (File.Exists(path_url))
                 return File.ReadAllBytes(path_url);
             return null;
-
-            try
-            {
-
-                string bytes = Get_String("https://web.archive.org/web/20120104233009/https://" + "www.poptropica.com" + filename + ".xml");
-                if (bytes.Contains(" type=\"text/javascript\">") || bytes.IsNullOrEmpty())
-                {
-                    bytes = Get_String("https://www.poptropica.com/cmg/play/resources/" + filename.Substring("game/".Length));
-                }
-                File_real.WriteAllText(POP_server.base_pop_path + filename + ".xml", bytes);
-                if (File.Exists(path_url))
-                    return File.ReadAllBytes(path_url);
-            }
-            catch
-            {
-                string bytes = Get_String("https://www.poptropica.com/cmg/play/resources/" + filename.Substring("game/".Length));
-                
-                File_real.WriteAllText(POP_server.base_pop_path + filename + ".xml", bytes);
-                if (File.Exists(path_url))
-                    return File.ReadAllBytes(path_url);
-            }
-            return null;
-        }
-
-        public static string Get_String(string url)
-        {
-            string data = string.Empty;
-            HttpClient client = new HttpClient();
-            var req = new HttpRequestMessage(HttpMethod.Get, url)
-            {
-                Version = new Version(2, 0),
-            };
-            client.DefaultRequestVersion = HttpVersion.Version20;
-            client.DefaultRequestHeaders.Add("Accept", "text/html,application/xhtml+xml,application/json,application/xml;q=0.9,*/*;q=0.8");
-            client.DefaultRequestHeaders.Add("Accept-Language", "en-US,en;q=0.5");
-            client.DefaultRequestHeaders.Add("Accept-Encoding", "deflate");
-            client.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:137.0) Gecko/20100101 Firefox/137.0");
-            client.DefaultRequestHeaders.Add("Origin", "");
-            client.DefaultRequestHeaders.Add("Referer", "");
-            var x = client.SendAsync(req).GetAwaiter().GetResult();
-            x.EnsureSuccessStatusCode();
-            StreamReader reader = new StreamReader(x.Content.ReadAsStream());
-            data = reader.ReadToEnd();
-            return data;
-        }
-
+        }*/
     }
 }

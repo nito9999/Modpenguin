@@ -18,12 +18,12 @@ using System.Security.Policy;
 
 namespace Modtropica_server.server.server
 {
-    public class POP_server_Routing
+    public class server_Routing
     {
-        public static POP_server_Routing POP_Server;
+        public static server_Routing POP_Server;
         public static int port_pop_server = 22500;
 
-        public POP_server_Routing()
+        public server_Routing()
         {
             _listener = new HttpListener();
             _listener.Prefixes.Add($"http://127.0.0.1:{port_pop_server}/");

@@ -30,7 +30,6 @@ namespace Modtropica_server
                 Form1.Setup_Form.Show();
                 this.Hide();
                 setup.program_setup();
-
             }
 
             app_setting.app_setting.load_setting();
@@ -155,10 +154,10 @@ namespace Modtropica_server
         {
             start_modtropica_button.Enabled = false;
             start_modtropica_button.BackColor = Color.DarkGray;
+            goto start_server_now;
             string temp = "game_data/pop_data/content/www.poptropica.com/game/shell.swf";
             if (!File.Exists(temp))
                 goto start_server_now;
-            goto start_server_now;
             modtropica.flashtools.Jpexs_tool.check_jpexs();
             string temp2 = "game_data/temp/tmp0.swf";
             File.Copy(temp, temp2, true);
@@ -198,13 +197,13 @@ namespace Modtropica_server
         }
         private static void start_server()
         {
-            POP_Server = new POP_server_Routing();
+            http_Server = new server_Routing();
 
             //new Thread(server.server.NewFolder.https_server.https_Main).Start();
         }
 
         public static POP_server POP_Server_old;
-        public static POP_server_Routing POP_Server = null;
+        public static server_Routing http_Server = null;
 
         private void checkedListBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -310,7 +309,7 @@ namespace Modtropica_server
             dataGridView1.Rows.Clear();
             mod_data.clear_modtropica_mod();
             mod_form_load();
-            POP_server_Routing.reloadRegisterRoutes();
+            server_Routing.reloadRegisterRoutes();
         }
 
         private void dataGridView1_CellContentClick_2(object sender, DataGridViewCellEventArgs e)
