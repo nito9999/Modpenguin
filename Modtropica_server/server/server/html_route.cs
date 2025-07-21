@@ -16,9 +16,10 @@ namespace Modtropica_server.server.server
     class html_route
     {        
         [Route("play.clubpenguin.com/php/login.php", "text/html")]
-        public static string login_php()
+        public static string login_php(string Username, string Password)
         {
-            return ""; // login shit
+            string tmp = $"%xt%lp%-1%15564235|{Username}|1|4|414|0|317|4025|0|0|609|973|0|0|1|0|0|0|" + "{\"spriteScale\":100,\"spriteSpeed\":100,\"ignoresBlockLayer\":false,\"invisible\":false,\"floating\":false}|%4070%0%1440%1386555051873%2556%0%10812%%8%1%-1%0%";
+            return tmp; // login shit
         }
         /*
         [Route("www.poptropica.com/crash-record.php", "text/html")]

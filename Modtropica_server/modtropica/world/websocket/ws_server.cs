@@ -20,7 +20,7 @@ namespace Modtropica_server.modtropica.world.websocket
         {
             public WebSocketHTTP_new()
             {
-                WebSocketServer webSocketServer = new WebSocketServer(string.Format("ws://127.0.0.1:20199", Array.Empty<object>()));
+                WebSocketServer webSocketServer = new WebSocketServer(string.Format("ws://127.0.0.1:2057", Array.Empty<object>()));
                 webSocketServer.AddWebSocketService<NotificationV2>("/api/notification/v2");
                 webSocketServer.AddWebSocketService<NotificationV2>("/hub/v1");
                 webSocketServer.AddWebSocketService<NotificationV2>("/hub/pop/");

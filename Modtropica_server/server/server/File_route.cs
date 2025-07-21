@@ -60,6 +60,15 @@ namespace Modtropica_server.server.server
             return null;
         }
 
+        [Route(@"^media.clubpenguin.com/(?<filename>.+)\.swf$", "application/x-shockwave-flash", true)]
+        public static byte[] media_file_path_swf(string filename)
+        {
+            string path_url = "media.clubpenguin.com/" + filename + ".swf";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
+
         /*
         [Route(@"^www.poptropica.com/(?<filename>.+)\.mp3$", "audio/mpeg", true)]
         public static byte[] file_path_mp3(string filename)
@@ -69,6 +78,24 @@ namespace Modtropica_server.server.server
                 return File.ReadAllBytes(path_url);
             return null;
         }*/
+
+        [Route("play.clubpenguin.com/news.txt", "application/text")]
+        public static byte[] news_txt_file()
+        {
+            string path_url = "play.clubpenguin.com/news.txt";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
+
+        [Route("play.clubpenguin.com/setup.txt", "application/text")]
+        public static byte[] Setup_txt_file()
+        {
+            string path_url = "play.clubpenguin.com/setup.txt";
+            if (File.Exists(path_url))
+                return File.ReadAllBytes(path_url);
+            return null;
+        }
 
         [Route(@"^play.clubpenguin.com/(?<filename>.+)\.txt$", "application/text", true)]
         public static byte[] file_path_txt(string filename)

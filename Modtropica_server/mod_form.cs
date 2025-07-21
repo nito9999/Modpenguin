@@ -198,7 +198,20 @@ namespace Modtropica_server
         private static void start_server()
         {
             http_Server = new server_Routing();
-
+            ModPenguin_server.ws_game_server.xmlsocket xmlsocket = new ModPenguin_server.ws_game_server.xmlsocket();
+            new Thread(() =>
+                {
+                    try
+                    {
+                        xmlsocket.StartAsync(2057).Wait();
+                        Console.WriteLine("xmlsocket started on port 2057");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Error starting xmlsocket: " + ex.Message);
+                    }
+                }).Start();
+            
             //new Thread(server.server.NewFolder.https_server.https_Main).Start();
         }
 
